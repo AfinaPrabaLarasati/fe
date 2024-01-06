@@ -55,7 +55,7 @@ export default function Dashboard() {
       setIsLocked(!isLocked); // Memperbarui status terbalik
       console.log(response);
     } catch (error) {
-      console.error("Failed to toggle door lock: ", error.message);
+      console.error("Failed to toggle door lock: ", error);
   if (error.response) {
     // The request was made and the server responded with a status code
     console.error("Response status:", error.response.status);
