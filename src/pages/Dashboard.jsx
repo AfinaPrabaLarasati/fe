@@ -6,7 +6,7 @@ export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState({});
   const [isLocked, setIsLocked] = useState(true);
-
+  
   useEffect(() => {
     const validateLogin = async () => {
       try {
@@ -40,12 +40,7 @@ export default function Dashboard() {
   const fetchDoorStatus = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.get("https://172.20.10.2/door/status", {
-        withCredentials: true,
-        httpsAgent: new (require('https')).Agent({  
-          rejectUnauthorized: false,
-        }),
-      });
+      const response = await axios.get("http://172.20.10.2/door/status");
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
@@ -56,12 +51,7 @@ export default function Dashboard() {
   const toggleLock = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.post("https://172.20.10.2/door/toggle", null, {
-        withCredentials: true,
-        httpsAgent: new (require('https')).Agent({  
-          rejectUnauthorized: false,
-        }),
-      });
+      const response = await axios.post("http://172.20.10.2/door/toggle");
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
