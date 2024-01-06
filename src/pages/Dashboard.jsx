@@ -42,7 +42,7 @@ export default function Dashboard() {
   const fetchDoorStatus = async () => {
     try {
       const response = await axios.get("https://172.20.10.9/door/status");
-      setIsLocked(!isLocked);
+      setIsLocked(response.data.isLocked);
       console.log(response);
     } catch (error) {
       console.error("Failed to fetch door status: ", error);
