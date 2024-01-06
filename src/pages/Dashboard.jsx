@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const fetchDoorStatus = async () => {
     try {
-      const response = await axios.get("https://172.20.10.9/door/status");
+      const response = await axios.get("https://172.20.10.2/door/status");
       setIsLocked(response.data.isLocked);
       console.log(response);
     } catch (error) {
@@ -51,11 +51,16 @@ export default function Dashboard() {
 
   const toggleLock = async () => {
     try {
-      const response = await axios.post("https://172.20.10.9/door/toggle"); 
+      const response = await axios.post("https://172.20.10.2/door/toggle"); 
       setIsLocked(!isLocked); // Memperbarui status terbalik
       console.log(response);
     } catch (error) {
-      console.error("Failed to toggle door lock: ", error);
+      console.error("Failed to toggle door lock: ", error.message);
+  if (error.response) {
+    // The request was made and the server responded with a status code
+    console.error("Response status:", error.response.status);
+    console.error("Response data:", error.response.data);
+  }
     }
   };
 
