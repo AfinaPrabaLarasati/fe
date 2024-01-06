@@ -41,7 +41,7 @@ export default function Dashboard() {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
       const response = await axios.get("http://172.20.10.2/door/status");
-      setIsLocked(!isLocked);
+      setIsLocked(response.data.isLocked);
       console.log(response);
     } catch (error) {
       console.error("Failed to fetch door status: ", error);
