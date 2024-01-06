@@ -7,8 +7,6 @@ export default function Dashboard() {
   const [user, setUser] = useState({});
   const [isLocked, setIsLocked] = useState(true);
 
-  console.log(user);
-
   useEffect(() => {
     const validateLogin = async () => {
       try {
@@ -41,7 +39,13 @@ export default function Dashboard() {
 
   const fetchDoorStatus = async () => {
     try {
-      const response = await axios.get("https://172.20.10.2/door/status");
+      // Add withCredentials and httpsAgent for self-signed certificate
+      const response = await axios.get("https://172.20.10.2/door/status", {
+        withCredentials: true,
+        httpsAgent: new (require('https')).Agent({  
+          rejectUnauthorized: false,
+        }),
+      });
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
@@ -51,55 +55,60 @@ export default function Dashboard() {
 
   const toggleLock = async () => {
     try {
-      const response = await axios.post("https://172.20.10.2/door/toggle"); 
-      setIsLocked(!isLocked); // Memperbarui status terbalik
+      // Add withCredentials and httpsAgent for self-signed certificate
+      const response = await axios.post("https://172.20.10.2/door/toggle", null, {
+        withCredentials: true,
+        httpsAgent: new (require('https')).Agent({  
+          rejectUnauthorized: false,
+        }),
+      });
+      setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
       console.error("Failed to toggle door lock: ", error);
-  if (error.response) {
-    // The request was made and the server responded with a status code
-    console.error("Response status:", error.response.status);
-    console.error("Response data:", error.response.data);
-  }
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error("Response status:", error.response.status);
+        console.error("Response data:", error.response.data);
+      }
     }
   };
 
   return (
-    <>
-      <div>
-        <div className="dashboard-box">
-          <div className="" style={{display: "flex", justifyContent: "space-between"}}>
-            <p className="text-white">{user.name} </p>
-          <p className="m-0 text-white " style={{textAlign: "center"}}>Room {user.room}</p>
-          </div>
-          <h1 className="headline text-center text-uppercase fw-bold">
-            {" "}
-            Welcome to Laras Kost
-          </h1>
-          <p className="text-white" style={{textAlign: "center"}}>
-            Door is {isLocked ? "Locked" : "Unlocked"}
+    <div>
+      <div className="dashboard-box">
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p className="text-white">{user.name} </p>
+          <p className="m-0 text-white " style={{ textAlign: "center" }}>
+            Room {user.room}
           </p>
-          <div className="d-flex flex-column gap-3 dash-button">
-            {isLocked ? (
-              <Button
-                onClick={toggleLock}
-                className="w-100 p-5 align-self-center fw-bold"
-                variant="outline-success"
-              >
-                Unlock the Door
-              </Button>
-            ) : (
-              <Button
-                onClick={toggleLock}
-                className="w-100 p-5 align-self-center fw-bold"
-                variant="outline-danger"
-              >
-                Lock the Door
-              </Button>
-            )}
-          </div>
+        </div>
+        <h1 className="headline text-center text-uppercase fw-bold">
+          Welcome to Laras Kost
+        </h1>
+        <p className="text-white" style={{ textAlign: "center" }}>
+          Door is {isLocked ? "Locked" : "Unlocked"}
+        </p>
+        <div className="d-flex flex-column gap-3 dash-button">
+          {isLocked ? (
+            <Button
+              onClick={toggleLock}
+              className="w-100 p-5 align-self-center fw-bold"
+              variant="outline-success"
+            >
+              Unlock the Door
+            </Button>
+          ) : (
+            <Button
+              onClick={toggleLock}
+              className="w-100 p-5 align-self-center fw-bold"
+              variant="outline-danger"
+            >
+              Lock the Door
+            </Button>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
