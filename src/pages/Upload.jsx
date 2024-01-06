@@ -23,7 +23,8 @@ const QRCodeReader = () => {
   };
 
   const redirectToUrl = (url) => {
-    window.open(url, '_blank');
+    // window.open(url, '_blank');
+    window.location.href = url;
   };
 
   const decodeQRCode = async (imageData) => {
