@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const fetchDoorStatus = async () => {
     try {
-      const response = await axios.get("https://172.20.10.2/door/status");
+      const response = await axios.get("https://172.20.10.2/door/status", {httpsAgent: new (require("https").Agent)({ rejectUnauthorized: false })});
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
@@ -51,7 +51,7 @@ export default function Dashboard() {
 
   const toggleLock = async () => {
     try {
-      const response = await axios.post("https://172.20.10.2/door/toggle"); 
+      const response = await axios.post("https://172.20.10.2/door/toggle", {httpsAgent: new (require("https").Agent)({ rejectUnauthorized: false })}); 
       setIsLocked(!isLocked); // Memperbarui status terbalik
       console.log(response);
     } catch (error) {
