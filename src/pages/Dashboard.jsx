@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import https from "https"
 
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -41,7 +42,10 @@ export default function Dashboard() {
 
   const fetchDoorStatus = async () => {
     try {
-      const response = await axios.get("https://172.20.10.2/door/status");
+      const axiosInstance = axios.create({
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+      });
+      const response = await axiosInstance.get("https://172.20.10.2/door/status");
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
@@ -51,7 +55,10 @@ export default function Dashboard() {
 
   const toggleLock = async () => {
     try {
-      const response = await axios.post("https://172.20.10.2/door/toggle"); 
+      const axiosInstance = axios.create({
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+      });
+      const response = await axiosInstance.post("https://172.20.10.2/door/toggle"); 
       setIsLocked(!isLocked); // Memperbarui status terbalik
       console.log(response);
     } catch (error) {
