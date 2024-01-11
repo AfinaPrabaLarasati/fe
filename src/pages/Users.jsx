@@ -9,7 +9,7 @@ const [data, setData] = useState()
 const { enqueueSnackbar } = useSnackbar();
 
 const dataPayload = async () => {
-const requestPayload = await axios.get("http://localhost:1010/auth/users")
+const requestPayload = await axios.get("https://be-production-a3e9.up.railway.app/auth/users")
 
 const responsePayload = requestPayload.data
 console.log(responsePayload);
@@ -29,7 +29,7 @@ useEffect(() => {
 }, [])
 
 const handleDelete = async (id) => {
-    const request = await axios.delete(`http://localhost:1010/auth/users/delete/${id}`)
+    const request = await axios.delete(`https://be-production-a3e9.up.railway.app/auth/users/delete/${id}`)
 
     const response = request.data
 

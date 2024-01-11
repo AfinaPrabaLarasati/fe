@@ -30,7 +30,7 @@ export default function LoginUser() {
       };
 
       const loginRequest = await axios.post(
-        `http://localhost:1010/auth/login/${number}`,
+        `https://be-production-a3e9.up.railway.app/auth/login/${number}`,
         userToLoginPayload
       );
 
@@ -48,10 +48,10 @@ export default function LoginUser() {
         setLoading(!loading);
       }
     } catch (err) {
-      const response = err.response.data;
-      console.log(response);
+      // const response = err.response.data;
+      // console.log(response);
 
-      enqueueSnackbar(`${response.message} `, {
+      enqueueSnackbar(`${err.message} `, {
         variant: "error",
         anchorOrigin: { vertical: "top", horizontal: "center" },
         autoHideDuration: 2000,

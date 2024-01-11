@@ -14,7 +14,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("token");
 
         const currentUserRequest = await axios.get(
-          "http://localhost:1010/auth/me",
+          "https://be-production-a3e9.up.railway.app/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export default function Dashboard() {
   const fetchDoorStatus = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.get("http://172.20.10.2/door/status");
+      const response = await axios.get("http://10.26.48.37/door/status");
       setIsLocked(response.data.isLocked);
       console.log(response);
     } catch (error) {
@@ -51,7 +51,7 @@ export default function Dashboard() {
   const toggleLock = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.post("http://172.20.10.2/door/toggle");
+      const response = await axios.post("http://10.26.48.37/door/toggle");
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {

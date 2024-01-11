@@ -33,7 +33,7 @@ export default function Register() {
       const token = localStorage.getItem("token");
 
       const registerRequest = await axios.post(
-        "http://localhost:1010/auth/registerUser",
+        "https://be-production-a3e9.up.railway.app/auth/registerUser",
         userToRegisterPayload,
         {
           headers: {
