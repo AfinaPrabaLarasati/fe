@@ -40,7 +40,7 @@ export default function Dashboard() {
   const fetchDoorStatus = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.get("http://10.26.48.37/door/status");
+      const response = await axios.get("http://172.20.10.3/door/status");
       setIsLocked(response.data.isLocked);
       console.log(response);
     } catch (error) {
@@ -51,7 +51,7 @@ export default function Dashboard() {
   const toggleLock = async () => {
     try {
       // Add withCredentials and httpsAgent for self-signed certificate
-      const response = await axios.post("http://10.26.48.37/door/toggle");
+      const response = await axios.post("http://172.20.10.3/door/toggle");
       setIsLocked(!isLocked);
       console.log(response);
     } catch (error) {
